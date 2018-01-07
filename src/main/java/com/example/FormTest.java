@@ -5,6 +5,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.databene.benerator.anno.Source;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -18,13 +19,14 @@ public class FormTest {
 	}
 	
 	@Test
-	public void doGet() throws Exception {
+	@Source("./data/add.csv")
+	public void doGet(String a, String b, String expected) throws Exception {
 		CloseableHttpClient client = HttpClients.createDefault();
-		HttpGet request = new HttpGet("http://192.168.119.151:8080/demo/FormServlet?a=1&b=2");
+		HttpGet request = new HttpGet("http://192.168.119.151:8080/demo/FormServlet?a=" + a + "&b= + " + b);
 		CloseableHttpResponse response = client.execute(request);
 		String actual = EntityUtils.toString(response.getEntity());
 		System.out.println(actual);
-		Assert.assertEquals(actual, "3");
+		Assert.assertEquals(actual, expected);
 	}
 	
 	@AfterTest
