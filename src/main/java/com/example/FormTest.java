@@ -23,6 +23,7 @@ public class FormTest {
 		HttpGet request = new HttpGet("http://192.168.119.151:8080/demo/FormServlet?a=1&b=2");
 		CloseableHttpResponse response = client.execute(request);
 		String actual = EntityUtils.toString(response.getEntity());
+		System.out.println(actual);
 		Assert.assertEquals(actual, "3");
 	}
 	
